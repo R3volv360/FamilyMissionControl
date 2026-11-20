@@ -1,0 +1,39 @@
+# Personal setup stuff
+LOCAL_INSTRUCTIONS.md
+
+# Local data: SQLite DB and recipe files, and their backups
+data/
+data.before-restore-*/
+backups/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.pytest_cache/
+.env
+
+# Node / frontend
+node_modules/
+frontend/dist/
+
+# IDE
+.idea/
+
+# Server logs (serve.py --log)
+logs/
+
+# Sensitive stuff
+
+*.key
+*.pem
+*.crt
+*.csr
+*.p12
+.env.*
+
+# Icon art
+
+icon/
+frontend/public/*icon*

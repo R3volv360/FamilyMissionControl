@@ -1,0 +1,23 @@
+.freezer-add-top { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.inline-field { display: flex; align-items: center; gap: 6px; font-weight: 600; }
+.inline-field input { width: 8em; font-weight: normal; }
+.pack-rows { border: none; padding: 0; margin: 12px 0 4px; }
+.pack-rows legend { font-weight: 600; padding: 0; margin-bottom: 6px; }
+.pack-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.pack-row input[type='number'] { width: 5em; }
+.pack-row input:not([type='number']) { width: 9em; }
+.add-row { padding-left: 0; }
+.pack-check { margin: 8px 0; color: var(--muted); }
+.pack-check.error { color: var(--danger); }
+input[aria-invalid='true'] { border-color: var(--danger); }
+
+.freezer-row { flex-direction: column; align-items: stretch; gap: 6px; padding: 10px 0; }
+.freezer-head { display: flex; align-items: center; gap: 8px; }
+.freezer-total { color: var(--muted); font-weight: 600; margin-left: 4px; }
+.packs { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.pack { display: inline-flex; align-items: center; border: 1px solid var(--border); border-radius: 999px; background: var(--bg); }
+.pack-label { padding: 0 6px; white-space: nowrap; }
+.pack-btn { border: none; background: none; min-height: 34px; min-width: 34px; padding: 0; font-size: 1.15em; border-radius: 999px; }
+.pack-btn:hover { background: var(--border); }
+.pack-new { display: inline-flex; gap: 6px; flex-wrap: wrap; }
+.pack-new input { width: 8em; }

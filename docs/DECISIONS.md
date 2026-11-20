@@ -1,0 +1,50 @@
+# Decisions and open questions
+
+A running log of choices made while building, so they can be reviewed and reversed. **Needs your input**
+lists what's waiting on the owner; nothing there is blocking work.
+
+## Needs your input
+
+| # | Question | Why it matters | What the app does meanwhile |
+| --- | --- | --- | --- |
+| Q2 | **Hosting and replication (Phase 7).** Deferred by the owner, 20 Nov | Decides how the app is installed and how the servers stay in step | Runs on this PC. Backups (D9) cover losing a machine |
+| Q5 | **AWS spec open questions** (certificate lifetime, a dev-PC certificate, CloudTrail). Deferred by the owner, 20 Nov | Operational choices only | 1-year certificates; warning 30 days before expiry |
+
+## Decisions made
+
+| # | Date | Decision | Reason / how to reverse |
+| --- | --- | --- | --- |
+| D1 | 20 Nov | Each item name is matched on a simple normalised key (case, spaces, markup, last word singular). "Garlic clove" and "Garlic" stay separate items | Predictable; merge them with Rename if wanted. A smarter alias list could come later |
+| D2 | 20 Nov | Recipe "pantry" lines (salt, oil) count as ingredients on the shopping list; serving notes like ", to taste" are dropped from the item name | They're real shopping items |
+| D3 | 20 Nov | Pantry and freezer items can be taken off their list entirely (with a confirmation); the name stays remembered | Without it a staple you stop buying could never leave the pantry |
+| D4 | 20 Nov | Merging two items that are both in the pantry keeps the *lower* stock level; in the freezer their packs are pooled | Nothing silently drops off "to buy"; no packs lost |
+| D5 | 20 Nov | The freezer's total weight is optional when adding; the packs define the weight, the total is a cross-check | F1 describes both; packs are the source of truth |
+| D6 | 20 Nov | Shopping list: an item in the freezer never goes on "to buy", even if it's also in the pantry and low | Spec: freezer items never go on "to buy" |
+| D7 | 20 Nov | Shopping list shows one total per ingredient for the week (amounts in the same kind of unit added and converted; others shown side by side, e.g. "300 g + 2"); meals listed in their own section. Same recipe twice counts twice. Spec M8 notes updated | Owner's change, 20 Nov |
+| D8 | 20 Nov | The Sync page checks the AWS connection when it opens (A6). It only asks AWS who the app is and lists one key, so it isn't a sync | A6 asks for the status on the Sync page; a manual-only check would usually be stale |
+| D9 | 20 Nov | Backups: a script makes a consistent copy of the database (SQLite's online backup, safe while the app runs) plus the recipe folders, as one dated zip, keeping the newest 14 | Works whatever hosting is chosen; protects the pantry, freezer and meal plans, which exist nowhere else |
+| D10 | 20 Nov | Deleting a recipe from the app warns when it's planned for upcoming meals; the meals stay (as "recipe removed") and re-link if the recipe comes back | Keeps meal history (M7) intact |
+| D11 | 20 Nov | This PC runs the app with `serve.py` from a scheduled task at sign-in, one worker (port: see D15); firewall rule limited to the Private profile and local subnet (documented only, not applied) | No extra software; home-network only, as the spec requires. See D17 |
+| D12 | 20 Nov | The home page is a dashboard: one card per module (this week's meals and the to-buy count, recipe count and failed S3 uploads, what's low in the pantry, what's in the freezer). Each module supplies its own card through the module registry | The spec's "one place to see everything"; a new module adds a card without touching the home page |
+| D13 | 20 Nov | The recipe uploader accepts the recipe-card skill's zip as it is ("Choose zip"); the server unpacks only the expected files (recipe.json, hero.jpg, sN.jpg, card.pdf) from the top level or a single folder, with a size limit. The folder name comes from the zip unless typed | The skill produces a zip; unzipping every recipe by hand is a chore. See D18 |
+| D14 | 20 Nov | Meal Planner: as well as dragging (M3/M5), tapping "+ Add new" or an empty day opens a recipe picker with search. Works with the keyboard too. Replacing a meal (M4) is still drag only | Dragging on a phone needs a press-and-hold that's easy to miss, and drag and drop can't be done from a keyboard |
+| D15 | 20 Nov | Server port is 5683 (was 8000) for `serve.py`, `dev.py` and the Vite proxy | Owner's change |
+| D16 | 20 Nov | No reminders, notifications or calendar sync (spec open questions closed) | Owner's answer to Q4 |
+| D17 | 20 Nov | The server runs only while someone is signed in (the README's logon task); see `LOCAL_INSTRUCTIONS.md` | Owner's answer to Q6 |
+| D18 | 20 Nov | A recipe zip unpacks to exactly the sample recipe folder (one folder named after the recipe, holding recipe.json, hero.jpg, sN.jpg, card.pdf). The uploader keeps accepting files at the top level too | Owner's answer to Q7; the extra layout costs nothing |
+| D19 | 20 Nov | Recipe Tool requirements agreed with the owner (spec T1–T11): name, serves, ingredients (number keypad + unit picker), steps, hero and step photos; saves upload to S3 straight away like R2; phone first | Owner, 20 Nov (closes Q3) |
+| D20 | 20 Nov | The app prints recipes from its own print layout (T10) and stops storing `card.pdf` (T11) | Owner: the PDF isn't useful inside the app and goes stale after edits |
+| D21 | 20 Nov | Defaults I set in the Recipe Tool spec, to review: the slug is fixed at creation (renaming keeps meal plans and S3 paths); fields the tool doesn't show are kept; amounts that don't fit number + unit are kept as written until changed; reorder by up/down buttons, not drag; drafts kept on the device until saved | Keeps existing data and links safe; drag is unreliable on phones |
+| D22 | 20 Nov | Recipe Tool built as its own module with a nav entry, plus "New recipe" on Recipes and "Edit"/"Print" on each recipe page | Module rule: new folder + nav entry; the Recipes links are where you'd look for it |
+| D23 | 20 Nov | Phone layout: each ingredient is two lines on a phone (amount + unit + "⋯", then the name full width), one line from 560 px. Move/cupboard/remove sit behind "⋯". Unit picker is the phone's native picker | The name was cut off at three abreast on a 360 px phone |
+| D24 | 20 Nov | Photos are shrunk in the browser to at most 1600 px on the long side, JPEG 85%, before upload; the server only accepts JPEGs up to 15 MB | Phone photos are 4–12 MB; the app never shows them larger |
+| D25 | 20 Nov | Drafts are kept in the browser's IndexedDB per device (one per recipe being edited, one for "new"), photos included; reopening the editor restores the draft with a "Discard changes" button and says if the recipe changed since | T9; a phone may reload a background tab at any time |
+| D26 | 20 Nov | Printing (T10) leaves out step photos and fits a typical recipe on one A4 page | Ink and paper; the hero photo is enough to recognise it |
+| D27 | 20 Nov | The server announces itself as `mission-control.local` (mDNS, via the `zeroconf` library) while `serve.py` runs; name set with `--name`, off with `--no-name`. Port stays 5683 | The owner asked for a local name like homeassistant.local; tested from a phone (the name resolved). One label only: `x.y.local` isn't resolved by every device |
+| D28 | 20 Nov | AWS set up on the server (closes Q1), following the AWS access spec, including its S3 safety settings (A8, A9). Details in `LOCAL_INSTRUCTIONS.md` | The owner ran the setup |
+| D29 | 21 Nov | Home screen icon: the owner's rocket art (source files kept outside git, see `LOCAL_INSTRUCTIONS.md`), resized to 512, 192, 180 (Apple) and 32 (favicon) in `frontend/public`, with `manifest.json` (label "Mission Ctrl", opens in the browser, not full screen), plus a separate maskable icon for Android from a maskable version of the art (checked: everything inside the 80% safe circle) | The main art reaches the edges, so Android's circle would cut it; the owner drew a maskable version with the scene smaller |
+| D30 | 21 Nov | The sign-in task runs `serve.py` with the venv's `pythonw.exe`: no console window. Under the venv's Python, `serve.py` runs uvicorn in its own process (so stopping the task stops the server), sends all output to `--log`, and runs npm hidden; boto3's signing helper is started hidden too. The backup task uses `pythonw.exe` and catches up on a missed 3 am run | The owner wants it to start with the PC, in the background, with no terminal window. Kept the sign-in trigger (D11, Q6) rather than a boot-time service |
+| D31 | 25 Nov | Shopping list has three sections to shop from: "To buy for meals", then "Pantry: only one left", then "Pantry: empty", listing every pantry item below Fully stocked even if no meal needs it. An item a meal needs stays in the meals section (with its pantry badge) and isn't repeated below; one in the freezer isn't listed below either (D6). The pantry sections show even with no meals planned, and the printout lists all three under headings | Owner's change, 25 Nov |
+| D32 | 25 Nov | Recipe Tool merged into the Recipes tab: the editor moved to `/recipes/new` and `/recipes/<slug>/edit`, its separate start page (a second recipe list) was removed, and old `/recipe-tool/...` links redirect to the matching page. The Recipes home card links to "Write a new recipe" | Owner's change, 25 Nov. Recipes already had New recipe and Edit buttons, so the tab was a duplicate |
+| D33 | 25 Nov | Recipe page has a Delete menu (from the app / S3 / both, same "Are you sure?" and planned-meals warning as the Sync page). S3 is only offered once the recipe has an S3 state; deleting from the app returns to the list | The owner asked; deleting was only on the Sync page |
+| D34 | 25 Nov | Uploading a recipe whose title matches a recipe in a *different* folder (ignoring case) asks first: "There's already a recipe called …", naming the other folder so it can be replaced instead, or "Add a second one". Only uploads check this; sync down and the editor don't | The owner asked. The same folder name already asks to replace (R2) |

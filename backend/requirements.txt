@@ -1,0 +1,9 @@
+fastapi>=0.165
+uvicorn[standard]>=0.54
+sqlalchemy>=2.1
+alembic>=1.20
+pydantic-settings>=2.0
+python-multipart>=0.0.34
+boto3>=1.44
+cryptography>=44  # reads the Roles Anywhere certificate's expiry date (AWS Access Spec A7)
+zeroconf>=0.147  # announces http://mission-control.local:5683 on the home network (mDNS)

@@ -1,0 +1,98 @@
+/* Recipe Tool: phone first (one column, 44 px targets, fixed Save bar); wider screens just get more room. */
+
+.tool { max-width: 760px; margin: 0 auto; padding-bottom: 96px; /* clear of the Save bar */ }
+.tool button, .tool input, .tool select, .tool textarea, .tool .button { min-height: 44px; }
+.tool input, .tool select, .tool textarea { font-size: max(16px, 1em); /* below 16px, iPhones zoom in on focus */ }
+.tool textarea {
+  font: inherit; font-size: max(16px, 1em); width: 100%; padding: 10px; resize: vertical; line-height: 1.45;
+  border-radius: 8px; border: 1px solid var(--border); background: var(--surface); color: var(--text);
+}
+.tool .field input { width: 100%; }
+.tool h3 { font-size: 1rem; margin: var(--gap) 0 4px; }
+.tool-head h1 { margin-bottom: 4px; }
+.section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+.danger-text { color: var(--danger); }
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+.notice {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; justify-content: space-between;
+  padding: 10px 12px; margin: 8px 0; border-radius: 8px; border: 1px solid var(--warn); background: var(--surface);
+}
+.notice p { margin: 0; }
+.notice-error { border-color: var(--danger); color: var(--danger); }
+
+/* Photos */
+.photo-picker img { display: block; width: 100%; object-fit: cover; border-radius: var(--radius); background: var(--border); }
+.photo-hero img { aspect-ratio: 16 / 10; max-height: 340px; }
+.photo-step img { aspect-ratio: 4 / 3; max-width: 360px; }
+.photo-actions { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
+.photo-empty {
+  display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer;
+  min-height: 56px; padding: 12px; border: 2px dashed var(--border); border-radius: var(--radius);
+  color: var(--muted); font-weight: 600; text-align: center;
+}
+.photo-hero .photo-empty { aspect-ratio: 16 / 7; }
+.photo-empty:hover, .photo-picker input:focus-visible + .photo-empty { border-color: var(--accent); color: var(--accent); }
+
+/* Serves */
+.stepper { display: inline-flex; align-items: stretch; gap: 0; }
+.stepper button { width: 48px; font-size: 1.3em; padding: 0; }
+.stepper button:first-child { border-radius: 8px 0 0 8px; }
+.stepper button:last-child { border-radius: 0 8px 8px 0; }
+.tool .stepper input { width: 3.5em; text-align: center; border-radius: 0; border-left: none; border-right: none; }
+
+/* Ingredients: on a phone, amount · unit · ⋯ on the first line and the name full width under them (the name
+   matters most and is too cramped beside them); one line on wider screens. */
+.ing-list { list-style: none; margin: 0; padding: 0; }
+.ing-row { border-top: 1px solid var(--border); padding: 8px 0; }
+.ing-row:first-child { border-top: none; }
+.ing-main {
+  display: grid; gap: 6px; align-items: center;
+  grid-template-columns: 5em 6.5em minmax(0, 1fr) 44px;
+  grid-template-areas: 'amount unit . more' 'name name name name';
+}
+.ing-amount { grid-area: amount; }
+.ing-unit { grid-area: unit; }
+.ing-name { grid-area: name; }
+.ing-main > .icon-button { grid-area: more; }
+@media (min-width: 560px) {
+  .ing-main { grid-template-columns: 5em 6.5em minmax(0, 1fr) 44px; grid-template-areas: 'amount unit name more'; }
+}
+.tool .ing-amount { width: 100%; padding: 8px 6px; text-align: right; }
+.ing-amount.invalid { border-color: var(--warn); }
+.tool .ing-unit { width: 100%; padding: 8px 4px; }
+.ing-name .autocomplete { min-width: 0; }
+.ing-actions { display: flex; flex-wrap: wrap; gap: 6px; padding: 8px 0 2px; }
+.ing-actions button { flex: 1 1 auto; }
+.ing-row.expanded { background: color-mix(in srgb, var(--accent) 6%, transparent); border-radius: 8px; }
+.add-button { width: 100%; margin-top: 8px; border-style: dashed; color: var(--accent); font-weight: 600; }
+
+/* Steps */
+.step-list { list-style: none; margin: 0; padding: 0; }
+.step-card { border: 1px solid var(--border); border-radius: var(--radius); margin-top: 10px; background: var(--bg); }
+.step-head { display: flex; align-items: center; gap: 4px; padding: 4px 4px 4px 0; }
+.step-toggle {
+  flex: 1; min-width: 0; display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  border: none; background: none; text-align: left; padding: 8px 10px;
+}
+.step-number {
+  display: inline-grid; place-items: center; width: 28px; height: 28px; flex-shrink: 0;
+  border-radius: 999px; background: var(--accent); color: var(--accent-text); font-weight: 700;
+}
+.step-heading { font-weight: 600; overflow-wrap: anywhere; }
+.step-tools { display: flex; flex-shrink: 0; }
+.step-body { padding: 0 12px 12px; }
+
+/* Save bar: always in reach of a thumb */
+.save-bar {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 15;
+  display: flex; align-items: center; justify-content: flex-end; gap: 12px;
+  padding: 10px max(var(--gap), calc((100% - 760px) / 2)); padding-bottom: max(10px, env(safe-area-inset-bottom));
+  background: var(--surface); border-top: 1px solid var(--border); box-shadow: 0 -4px 16px rgb(0 0 0 / 0.08);
+}
+.save-bar span { margin-right: auto; }
+.save-bar .btn-primary { min-width: 9em; font-weight: 600; }
+
+@media print {
+  .save-bar { display: none; }
+}

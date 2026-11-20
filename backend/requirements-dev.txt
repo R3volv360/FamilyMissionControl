@@ -1,0 +1,6 @@
+-r requirements.txt
+pytest>=9.2
+httpx>=0.28
+moto[s3]>=5.2
+# On Python 3.15 PyYAML (needed by moto) has no wheel yet; install it first with
+#   PYYAML_FORCE_LIBYAML=0 pip install pyyaml

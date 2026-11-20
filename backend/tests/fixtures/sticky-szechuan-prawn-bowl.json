@@ -1,0 +1,48 @@
+{
+  "title": "Sticky Szechuan Prawn Bowl",
+  "subtitle": "with fragrant rice and charred carrot",
+  "serves": 4,
+  "chips": [["35", "min"], ["Easy", ""], ["832", "kcal / serving"], ["25 g", "protein"]],
+  "allergens": "Crustaceans · Wheat/Gluten · Soya · Egg · Mustard",
+  "ingredients": [
+    ["320 g", "King prawns", "Crustaceans"],
+    ["300 g", "Jasmine rice", ""],
+    ["128 g*", "Aioli", "Egg, Mustard"],
+    ["1", "Garlic clove", ""],
+    ["2", "Carrots", ""],
+    ["50 ml*", "Soy sauce", "Soya, Wheat"],
+    ["2", "Scallions", ""],
+    ["14 g*", "Sriracha", ""],
+    ["1", "Lime", ""]
+  ],
+  "estimate_note": "* Estimated: source gives these as sachets; sizes from HelloFresh UK recipes (aioli ≈ 32 g, soy sauce 25 ml, sriracha 7 g each).",
+  "utensils": ["Sieve", "Pot with a tight lid", "Baking tray + baking paper", "Frying pan"],
+  "pantry": [["½ tsp", "Salt"], ["2 tbsp", "Oil"], ["", "Salt &amp; pepper, to taste"]],
+  "steps": [
+    ["Cook Your Rice", [
+      "Preheat your oven to 220°C/200°C fan/gas mark 7.",
+      "Rinse the <b>rice</b> to remove excess starch. Add 600ml cold <b>salted water</b> (for 4P) to a medium pot with a tight-fitting lid.",
+      "Bring to the boil, add the <b>rice</b>, cover and lower the heat to medium. Cook for 10 mins, then remove from the heat and leave covered until ready to serve."
+    ]],
+    ["Char Your Carrots", [
+      "Trim the <b>carrots</b>, then halve lengthways and cut into batons.",
+      "Pop the <b>carrots</b> onto a lined baking tray, drizzle with <b>oil</b> and season with <b>salt</b> and <b>pepper</b>.",
+      "Roast on the top shelf until charred, 15–18 mins."
+    ]],
+    ["Prep the Sauce", [
+      "Peel and grate the <b>garlic</b>. Trim and thinly slice the <b>scallions</b>.",
+      "In a small bowl, mix the <b>soy sauce</b>, <b>sriracha</b>, <b>garlic</b> and a splash of water."
+    ]],
+    ["Fry the Prawns", [
+      "Heat a drizzle of <b>oil</b> in a large frying pan on high heat.",
+      "Add the <b>prawns</b> and fry until pink and cooked through, 3–4 mins. Pour in the sauce and bubble until sticky, 1 min."
+    ]],
+    ["Finish and Serve", [
+      "Fluff up the <b>rice</b> with a fork and share between your bowls.",
+      "Top with the <b>carrots</b> and sticky <b>prawns</b>. Drizzle over the <b>aioli</b>, scatter over the <b>scallions</b> and serve with a wedge of <b>lime</b>."
+    ]]
+  ],
+  "page1_steps": 2,
+  "nutrition": "832 kcal · Fat 40.4 g (sat. 4.9 g) · Carbs 97.9 g · Protein 25.2 g · Salt 6.5 g",
+  "footer": "Test recipe for Chop Til You Drop"
+}
